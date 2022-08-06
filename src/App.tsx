@@ -12,16 +12,19 @@ const Wrapper = styled.div`
 
   display: flex;
   max-width: 680px;
-  width: 100%;
+  width: 100vw;
   margin: 0 auto;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  
 `;
 
 const Boards = styled.div` 
   display: grid;
   width: 100%;
+  justify-content:center;
+  align-items: flex-start;
   gap:10px;
   grid-template-columns: repeat(3, 1fr);
 `;
