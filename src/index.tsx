@@ -3,9 +3,9 @@ import ReactDOM from "react-dom";
 import { RecoilRoot } from "recoil";
 import { ThemeProvider } from "styled-components";
 import App from "./App.tsx";
-import { darkTheme } from "./theme.ts";
-
 import { createGlobalStyle } from "styled-components";
+import { theme } from "./theme.ts";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap');
@@ -34,6 +34,28 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, main, menu, nav, section {
   display: block;
 }
+
+ /* REM rules */
+ html{font-size:3px !important;}
+  @media screen and (min-width:216px){html{font-size:3.5px !important;}}
+  @media screen and (min-width:229px){html{font-size:3.8px !important;}}
+  @media screen and (min-width:250px){html{font-size:4.2px !important;}}
+  @media screen and (min-width:252px){html{font-size:4.5px !important;}}
+  @media screen and (min-width:288px){html{font-size:4.8px !important;}}
+  @media screen and (min-width:300px){html{font-size:5px !important;}}
+  /* iphone 5 */
+  @media screen and (min-width:320px){html{font-size:6px !important;}}
+  @media screen and (min-width:360px){html{font-size:7px !important;}}
+  @media screen and (min-width:396px){html{font-size:8px !important;}}
+  @media screen and (min-width:432px){html{font-size:8.4px !important;}}
+  @media screen and (min-width:460px){html{font-size:8.8px !important;}}
+  @media screen and (min-width:504px){html{font-size:9.2px !important;}}
+  @media screen and (min-width:540px){html{font-size:9.5px !important;}}
+  @media screen and (min-width:576px){html{font-size:9.8px !important;}}
+  @media screen and (min-width:600px){html{font-size:10px !important;}}
+  @media screen and (min-width:820px){html{font-size:10px !important;}}
+  body {font-size:1rem !important;}
+
 /* HTML5 hidden-attribute fix for newer browsers */
 *[hidden] {
     display: none;
@@ -62,9 +84,11 @@ table {
 body {
   font-weight: 300;
   font-family: 'Source Sans Pro', sans-serif;
-  background-color:${(props) => props.theme.bgColor};
   color:black;
   line-height: 1.2;
+  color: ${(props) => props.theme.white.darker};
+  background-color:black;
+  
 }
 a {
   text-decoration:none;
@@ -72,14 +96,21 @@ a {
 }
 `;
 
-ReactDOM.render(
-    <React.StrictMode>
-        <RecoilRoot>
-            <ThemeProvider theme={darkTheme}>
-                <GlobalStyle />
-                <App />
-            </ThemeProvider>
-        </RecoilRoot>
-    </React.StrictMode>,
-    document.getElementById("root")
+const client = new QueryClient();
+const root = ReactDOM.createRoot(
+  document.getElementById("root") as HTMLElement
+);
+
+root.render(
+  <React.StrictMode>
+    <RecoilRoot>
+      <QueryClientProvider client={client}>
+        <ThemeProvider theme={theme}>
+          <GlobalStyle />
+          <App />
+        </ThemeProvider>
+      </QueryClientProvider>
+    </RecoilRoot>
+  </React.StrictMode>,
+  document.getElementById("root")
 );

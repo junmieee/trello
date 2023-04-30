@@ -1,98 +1,31 @@
-import { DragDropContext, Droppable, Draggable, DropResult } from "react-beautiful-dnd";
-import { useRecoilState } from "recoil";
-import styled from "styled-components";
-import { toDoState } from "./atoms.tsx";
-import React from "react";
-import Board from "./Components/Board.tsx"
-
-
-import DragabbleCard from "./Components/DragabbleCard.tsx";
-
-const Wrapper = styled.div`
-
-  display: flex;
-  max-width: 680px;
-  width: 100vw;
-  margin: 0 auto;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  
-`;
-
-const Boards = styled.div` 
-  display: grid;
-  width: 100%;
-  justify-content:center;
-  align-items: flex-start;
-  gap:10px;
-  grid-template-columns: repeat(3, 1fr);
-`;
-
-
-
-
-
-const toDos = ["a", "b", "c", "d", "e", "f"];
-
-
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import Home from "./Routes/Home.tsx";
+import Tv from "./Routes/Tv.tsx";
+import Search from "./Routes/Search.tsx";
+import Header from "./Routes/Components/Header.tsx"
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import SearchPage from "./Routes/Search.tsx";
 
 function App() {
-    const [toDos, setToDos] = useRecoilState(toDoState)
-    const onDragEnd = (info: DropResult) => {
-        console.log(info);
-        const { destination, draggableId, source } = info;
-        if (!destination) return;
-        if (destination?.droppableId === source.droppableId) {
-            // same board movement.
-            setToDos((allBoards) => {
-                const boardCopy = [...allBoards[source.droppableId]];
-                const taskObj = boardCopy[source.index];
-                boardCopy.splice(source.index, 1);
-                boardCopy.splice(destination?.index, 0, taskObj);
-                return {
-                    ...allBoards,
-                    [source.droppableId]: boardCopy,
-                };
-            });
-        }
-        if (destination.droppableId !== source.droppableId) {
-            // cross board movement
-            setToDos((allBoards) => {
-                const sourceBoard = [...allBoards[source.droppableId]];
-                const taskObj = sourceBoard[source.index];
-
-                const destinationBoard = [...allBoards[destination.droppableId]];
-                sourceBoard.splice(source.index, 1);
-                destinationBoard.splice(destination?.index, 0, taskObj);
-                return {
-                    ...allBoards,
-                    [source.droppableId]: sourceBoard,
-                    [destination.droppableId]: destinationBoard,
-                };
-            });
-        }
-        //if (!destination) return;
-        /* setToDos((oldToDos) => {
-            const copyToDos = [...oldToDos];
-            //1) delete item on source.index
-            copyToDos.splice(source.index, 1);
-            //2) put bact the item on the destination.index
-            copyToDos.splice(destination?.index, 0, draggableId);
-            return copyToDos;
-        }); */
-
-
-    };
+    const client = new QueryClient();
     return (
-        <DragDropContext onDragEnd={onDragEnd}>
-            <Wrapper>
-                <Boards>
-                    {Object.keys(toDos).map(boardId => <Board boardId={boardId} key={boardId} toDos={toDos[boardId]} />)}
 
-                </Boards>
-            </Wrapper>
-        </DragDropContext>
+        <QueryClientProvider client={client}>
+            <Router>
+                <Header />
+                <Routes>
+                    <Route path="/tv" element={<Tv />} />
+                    <Route path="/search" element={<SearchPage />} />
+                    <Route path="/search/:listType/:id" element={<SearchPage />} />
+                    <Route path="/" element={<Home />} />
+                    <Route path="/movies/:movieId" element={<Home />} />
+                    <Route path="/home/:listType/:id" element={<Home />}></Route>
+                    <Route path="/home/banner/:id" element={<Home />}></Route>
+
+                </Routes>
+            </Router>
+        </QueryClientProvider>
     );
 }
-export default App; 
+
+export default App;
