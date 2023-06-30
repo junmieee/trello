@@ -1,5 +1,6 @@
 import { DefaultTheme } from "styled-components";
 
+<<<<<<< HEAD
 export const darkTheme: DefaultTheme = {
     bgColor: "#57606f",
     boardColor: "#dfe4ea",
@@ -28,3 +29,17 @@ export const theme: DefaultTheme = {
         'subway-line-2': '#33a23d',
     },
 };
+=======
+export const theme: DefaultTheme = {
+  red: "#E51013",
+  black: {
+    veryDark: "#141414",
+    darker: "#181818",
+    lighter: "#2F2F2F",
+  },
+  white: {
+    lighter: "#fff",
+    darker: "#e5e5e5",
+  },
+};
+>>>>>>> 72f7b5fde0a228cf5a7d1fec77239f22508ea852

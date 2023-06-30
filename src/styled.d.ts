@@ -1,4 +1,7 @@
+import "styled-components";
+
 declare module "styled-components" {
+<<<<<<< HEAD
     export interface darkTheme {
         bgColor: string;
         boardColor: string;
@@ -12,14 +15,18 @@ declare module "styled-components" {
         boardColor: string;
         cardColor: string;
     }
-}
-
-// styled.d.ts
-import 'styled-components';
-
-// styled-components안에 들어있는 DefaultTheme 형식 지정해주기
-declare module 'styled-components' {
-    export interface DefaultTheme {
-        colors: any;
-    }
+=======
+  export interface DefaultTheme {
+    red: string;
+    black: {
+      veryDark: string;
+      darker: string;
+      lighter: string;
+    };
+    white: {
+      darker: string;
+      lighter: string;
+    };
+  }
+>>>>>>> 72f7b5fde0a228cf5a7d1fec77239f22508ea852
 }
