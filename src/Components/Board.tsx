@@ -87,9 +87,11 @@ function Board({ toDos, boardId, index }: IBoardProps) {
             };
         });
         setValue("toDo", "");
+        console.log('boardId', boardId)
     };
     return (
         <Draggable draggableId={boardId} index={index} key={boardId} >
+
             {(magic, Snapshot) => (
                 <Wrapper
                     {...magic.dragHandleProps}

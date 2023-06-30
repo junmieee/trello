@@ -1,4 +1,4 @@
-import { atom } from "recoil";
+import { atom, selector } from "recoil";
 import { recoilPersist } from 'recoil-persist';
 
 
@@ -64,18 +64,13 @@ export const BoardState = atom<string[]>({
 export const toDoState = atom<IToDoState>({
     key: "toDo",
     default: {
-<<<<<<< HEAD
         "To Do": [
         ],
-=======
-        "To Do": [],
->>>>>>> 72f7b5fde0a228cf5a7d1fec77239f22508ea852
         Doing: [],
         Done: [],
     },
 });
 
-<<<<<<< HEAD
 export const cardState = atom<object>({ key: "cardState", default: {} });
 
 export const cardModalState = atom<boolean>({ key: "cardModalState", default: false });
@@ -84,26 +79,24 @@ export const cardModalState = atom<boolean>({ key: "cardModalState", default: fa
 export const TrashCanState = atom<boolean>({
     key: 'trashcan',
     default: true,
-=======
 
 
-export const sliderCnt = selector({
-    key: "sliderCnt",
-    get: ({ get }) => {
-        const width = get(windowWidth);
-        if (width > 1400) {
-            return 6;
-        } else if (width > 1130) {
-            return 5;
-        } else if (width > 900) {
-            return 4;
-        } else if (width > 680) {
-            return 3;
-        } else if (width > 250) {
-            return 2;
-        } else {
-            return 1;
-        }
-    },
->>>>>>> 72f7b5fde0a228cf5a7d1fec77239f22508ea852
+    // export const sliderCnt = selector({
+    //     key: "sliderCnt",
+    //     get: ({ get }) => {
+    //         const width = get(windowWidth);
+    //         if (width > 1400) {
+    //             return 6;
+    //         } else if (width > 1130) {
+    //             return 5;
+    //         } else if (width > 900) {
+    //             return 4;
+    //         } else if (width > 680) {
+    //             return 3;
+    //         } else if (width > 250) {
+    //             return 2;
+    //         } else {
+    //             return 1;
+    //         }
+    //     },
 });

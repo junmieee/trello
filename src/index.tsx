@@ -2,24 +2,24 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { RecoilRoot } from "recoil";
 import App from "./App.tsx";
-<<<<<<< HEAD
-import { darkTheme } from "./theme.ts";
-import { isLightState } from "./atoms.tsx";
+// <<<<<<< HEAD
+// import { darkTheme } from "./theme.ts";
+// import { isLightState } from "./atoms.tsx";
 
 
 
 
 
-ReactDOM.render(
-  <React.StrictMode>
-    <RecoilRoot>
-      <App />
-    </RecoilRoot>
-  </React.StrictMode>,
-  document.getElementById("root")
-);
-=======
-import { createGlobalStyle } from "styled-components";
+// ReactDOM.render(
+//   <React.StrictMode>
+//     <RecoilRoot>
+//       <App />
+//     </RecoilRoot>
+//   </React.StrictMode>,
+//   document.getElementById("root")
+// );
+// =======
+import { createGlobalStyle, ThemeProvider } from "styled-components";
 import { theme } from "./theme.ts";
 import { QueryClient, QueryClientProvider } from "react-query";
 
@@ -130,4 +130,4 @@ root.render(
   </React.StrictMode>,
   document.getElementById("root")
 );
->>>>>>> 72f7b5fde0a228cf5a7d1fec77239f22508ea852
+// >>>>>>> 72f7b5fde0a228cf5a7d1fec77239f22508ea852
