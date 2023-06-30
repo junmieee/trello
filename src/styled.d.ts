@@ -1,5 +1,13 @@
 declare module "styled-components" {
-    export interface DefaultTheme {
+    export interface darkTheme {
+        bgColor: string;
+        boardColor: string;
+        cardColor: string;
+    }
+}
+
+declare module "styled-components" {
+    export interface lightTheme {
         bgColor: string;
         boardColor: string;
         cardColor: string;

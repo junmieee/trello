@@ -11,8 +11,12 @@
     "react-beautiful-dnd": "^13.1.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.33.0",
+    "react-icons": "^4.7.1",
+    "react-modal": "^3.16.1",
     "react-scripts": "5.0.1",
+    "react-toggle-dark-mode": "^1.1.1",
     "recoil": "^0.7.3",
+    "recoil-persist": "^4.2.0",
     "styled-components": "^5.3.5",
     "web-vitals": "^2.1.4"
   },
@@ -41,6 +45,7 @@
     ]
   },
   "devDependencies": {
-    "@types/react-beautiful-dnd": "^13.1.2"
+    "@types/react-beautiful-dnd": "^13.1.2",
+    "@types/react-modal": "^3.13.1"
   }
 }
