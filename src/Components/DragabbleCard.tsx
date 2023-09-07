@@ -1,13 +1,13 @@
 import { Draggable } from "react-beautiful-dnd";
 import styled from "styled-components";
-import React from "react";
+import React, { useState } from "react";
 import { toDoState, cardState, cardModalState, isDarkState } from "../atoms.tsx";
 import { useSetRecoilState, SetterOrUpdater } from "recoil";
 
 
 const CardText = styled.span<{ isDragging: boolean; isDark: boolean }>`
   font-size: 18px;
-  //color: ${(props) => (props.isDragging === true ? "white" : "darkgray")};
+  color: ${(props) => (props.isDragging === true ? "white" : "darkgray")};
   margin-right: auto;
   color: "#576574"
   
@@ -73,7 +73,7 @@ const Card = styled.div<{ isDragging: boolean }>`
 		opacity: 0;
 	}
 
-`;
+`
 
 
 interface IDragabbleCardProps {
@@ -100,7 +100,7 @@ function DragabbleCard({ toDoId, toDoText, index, boardId }: IDragabbleCardProps
         setCard({ [boardId]: toDoId });
         setCardModal(true);
     };
-    const [isDarkMode, setDarkMode] = React.useState(isDarkState);
+    const [isDarkMode, setDarkMode] = useState(isDarkState);
 
     return (
         <Draggable key={toDoId} draggableId={toDoId + ""} index={index}>
@@ -128,7 +128,4 @@ function DragabbleCard({ toDoId, toDoText, index, boardId }: IDragabbleCardProps
         </Draggable>
     )
 }
-
-
-//memo: don't rerender the DragabbleCard if the props don't change
 export default React.memo(DragabbleCard);

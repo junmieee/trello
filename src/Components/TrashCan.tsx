@@ -79,7 +79,7 @@ export const TrashCan = () => {
           {trashCan && (
             <span className="trash">
               <span></span>
-              <FaRecycle />
+              {/* <FaRecycle /> */}
             </span>
           )}
         </TrashCanWrapper>

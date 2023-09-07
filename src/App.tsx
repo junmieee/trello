@@ -8,8 +8,7 @@ import { CardModal } from "./Components/CardModal.tsx";
 import { ThemeProvider } from "styled-components";
 import { lightTheme, darkTheme } from "./theme.ts";
 import { createGlobalStyle } from "styled-components";
-import { BiSun, BiMoon } from "react-icons/bi";
-import { onDrageEnd } from "./untils/index.ts";
+import { onDragEnd } from "./untils/index.ts";
 import { TrashCan } from '../src/Components/TrashCan.tsx'
 import { DarkModeSwitch } from 'react-toggle-dark-mode';
 
@@ -156,7 +155,8 @@ function App() {
   }, [toDos]);
 
   const onBeforeDragStart = (info: DragStart) => {
-    if (info.type === "DEFAULT") setTrashCan(true);
+    if (info.type === "DEFAULT")
+      setTrashCan(true);
   };
 
   return (
@@ -175,9 +175,7 @@ function App() {
       </Navigation>
 
       <DragDropContext
-        onDragEnd={(info) =>
-          onDrageEnd(info, setBoards, setToDos, setTrashCan)
-        }
+        onDragEnd={(info) => onDragEnd(info, setBoards, setToDos, setTrashCan)}
         onBeforeDragStart={onBeforeDragStart}
       >
         <Wrapper>
@@ -209,36 +207,4 @@ function App() {
 }
 
 export default App;
-// =======
-// import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
-// import Home from "./Routes/Home.tsx";
-// import Tv from "./Routes/Tv.tsx";
-// import Search from "./Routes/Search.tsx";
-// import Header from "./Routes/Components/Header.tsx"
-// import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-// import SearchPage from "./Routes/Search.tsx";
 
-// function App() {
-//     const client = new QueryClient();
-//     return (
-
-//         <QueryClientProvider client={client}>
-//             <Router>
-//                 <Header />
-//                 <Routes>
-//                     <Route path="/tv" element={<Tv />} />
-//                     <Route path="/search" element={<SearchPage />} />
-//                     <Route path="/search/:listType/:id" element={<SearchPage />} />
-//                     <Route path="/" element={<Home />} />
-//                     <Route path="/movies/:movieId" element={<Home />} />
-//                     <Route path="/home/:listType/:id" element={<Home />}></Route>
-//                     <Route path="/home/banner/:id" element={<Home />}></Route>
-
-//                 </Routes>
-//             </Router>
-//         </QueryClientProvider>
-//     );
-// }
-
-// export default App;
-// >>>>>>> 72f7b5fde0a228cf5a7d1fec77239f22508ea852

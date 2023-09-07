@@ -97,15 +97,6 @@ table {
 * {
   box-sizing: border-box;
 }
-body {
-  font-weight: 300;
-  font-family: 'Source Sans Pro', sans-serif;
-  color:black;
-  line-height: 1.2;
-  color: ${(props) => props.theme.white.darker};
-  background-color:black;
-  
-}
 a {
   text-decoration:none;
   color:inherit;
@@ -118,16 +109,17 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  <React.StrictMode>
-    <RecoilRoot>
-      <QueryClientProvider client={client}>
-        <ThemeProvider theme={theme}>
-          <GlobalStyle />
-          <App />
-        </ThemeProvider>
-      </QueryClientProvider>
-    </RecoilRoot>
-  </React.StrictMode>,
+  // <React>
+  <RecoilRoot>
+    <QueryClientProvider client={client}>
+      <ThemeProvider theme={theme}>
+        <GlobalStyle />
+        <App />
+      </ThemeProvider>
+    </QueryClientProvider>
+  </RecoilRoot>
+  // </React.StrictMode>,
+  ,
   document.getElementById("root")
 );
 // >>>>>>> 72f7b5fde0a228cf5a7d1fec77239f22508ea852

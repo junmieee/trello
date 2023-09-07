@@ -2,7 +2,7 @@ import { DropResult } from 'react-beautiful-dnd';
 import { SetterOrUpdater } from 'recoil';
 import { IToDoState } from '../atom.tsx';
 
-export const onDrageEnd = (info: DropResult, setBoards: SetterOrUpdater<string[]>,
+export const onDragEnd = (info: DropResult, setBoards: SetterOrUpdater<string[]>,
     setToDos: SetterOrUpdater<IToDoState>, setTrashCan: SetterOrUpdater<boolean>
 
 ) => {
