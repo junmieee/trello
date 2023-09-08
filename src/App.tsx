@@ -12,6 +12,7 @@ import { onDragEnd } from "./utils/index.ts";
 import { TrashCan } from '../src/Components/TrashCan.tsx'
 import { DarkModeSwitch } from 'react-toggle-dark-mode';
 import { IToDoState } from "./atoms";
+import { AiOutlinePlus } from "react-icons/ai";
 
 
 
@@ -22,7 +23,6 @@ function App() {
   const setTrashCan = useSetRecoilState(TrashCanState);
 
 
-  console.log('boardsmove', boardsmove)
   const onAdd = () => {
     const name = window.prompt("새 보드의 이름을 입력해주세요.")?.trim();
 
@@ -68,7 +68,7 @@ function App() {
       <GlobalStyle />
 
       <Navigation>
-        <Button onClick={onAdd}>+</Button>
+        <Button onClick={onAdd}><AiOutlinePlus size={50} /></Button>
 
         <Buttons>
           <DarkModeSwitch
@@ -220,20 +220,22 @@ const Buttons = styled.div`
         color: ${(props) => props.theme.secondaryTextColor};
         `;
 
-const Button = styled.button`
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.8rem;
-        width: 2rem;
-        height: 2rem;
-        background: none;
-        border: none;
-        transition: color 0.3s;
-        padding: 0;
-        border-radius: 0.2rem;
-        &:hover,
-        &:focus {
-          cursor: pointer;
+const Button = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  background-color: rgba(10, 61, 98, 0.1);
+  transition: background-color 0.3s; 
+  padding: 0;
+
+  &:hover {
+    background-color: rgba(10, 61, 98, 0.35);
   }
+  &:focus {
+    cursor: pointer;
+  }
+
         `;

@@ -6,6 +6,100 @@ import { ITodo, toDoState } from "../atoms.tsx";
 import { Snapshot, useSetRecoilState } from "recoil";
 import React from "react";
 import { IToDoState } from "../atoms";
+import { BiTrashAlt } from "react-icons/bi";
+
+
+interface IBoardProps {
+    toDos: ITodo[];
+    boardId: string;
+    index: number;
+    setBoards: any;
+}
+interface IForm {
+    toDo: string;
+}
+
+function Board({ toDos = [], boardId, index, setBoards }: IBoardProps) {
+    const setToDos = useSetRecoilState<IToDoState>(toDoState);
+    const { register, setValue, handleSubmit } = useForm<IForm>();
+    const onValid = ({ toDo }: IForm) => {
+        const newToDo = {
+            id: Date.now(),
+            text: toDo,
+        };
+        setToDos((allBoards) => {
+            return {
+                ...allBoards,
+                [boardId]: [newToDo, ...allBoards[boardId]],
+            };
+        });
+        setValue("toDo", "");
+        console.log('boardId', boardId)
+    };
+
+
+    const onDeleteBoard = (boardId) => {
+        // setToDos((allBoards) => {
+        //     const updatedBoards = { ...allBoards };
+        //     delete updatedBoards[boardId];
+        //     return updatedBoards;
+        // });
+
+        // 보드 목록 업데이트
+        setBoards((prevBoards) => {
+            return prevBoards.filter((b) => b !== boardId);
+        });
+    };
+
+    return (
+        <Draggable draggableId={boardId} index={index} key={boardId} >
+
+            {(magic, Snapshot) => (
+                <Wrapper
+                    {...magic.dragHandleProps}
+                    {...magic.draggableProps}
+                    ref={magic.innerRef}
+                >
+                    <TitleWrapper >
+
+                        <Title>{boardId}</Title>
+                        <DeleteButton
+                            onClick={() => onDeleteBoard(boardId)}><BiTrashAlt size={30} /></DeleteButton>
+                    </TitleWrapper>
+                    <Form onSubmit={handleSubmit(onValid)}>
+                        <input
+                            {...register("toDo", { required: true })}
+                            type="text"
+                            placeholder={`Add task on ${boardId}`}
+                        />
+                    </Form>
+                    <Droppable droppableId={boardId}>
+                        {(magic, info) => (
+                            <Area
+                                isDraggingOver={info.isDraggingOver}
+                                isDraggingFromThis={Boolean(info.draggingFromThisWith)}
+                                ref={magic.innerRef}
+                                {...magic.droppableProps}
+                            >
+                                {toDos.map((toDo, index) => (
+                                    <DragabbleCard
+                                        key={toDo.id}
+                                        index={index}
+                                        toDoId={toDo.id}
+                                        toDoText={toDo.text}
+                                        boardId={boardId}
+                                    />
+                                ))}
+                                {magic.placeholder}
+                            </Area>
+                        )}
+                    </Droppable>
+                </Wrapper>
+            )}
+        </Draggable >
+    );
+}
+export default React.memo(Board);
 
 
 const Wrapper = styled.div`
@@ -21,14 +115,11 @@ const Wrapper = styled.div`
   margin-right: 18px;
 
 
+
 `;
-const Title = styled.h2`
-  text-align: center;
-  font-weight: 600;
-  margin-bottom: 10px;
-  font-size: 20px;
-  color: ${(props) => props.theme.textColor};
-`;
+
+
+
 interface IAreaProps {
     isDraggingFromThis: boolean;
     isDraggingOver: boolean;
@@ -64,100 +155,39 @@ const Form = styled.form`
 `;
 
 
-const DeleteButton = styled.button`
-  font-size: 50px;
 
-  cursor: pointer;
-  top: 5px;
-  right: 10px;
+
+const Title = styled.h2`
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: 10px;
+  font-size: 20px;
+  color: ${(props) => props.theme.textColor};
+  flex-grow: 1; 
+  display: flex; 
+  justify-content: center; 
 `;
 
-interface IBoardProps {
-    toDos: ITodo[];
-    boardId: string;
-    index: number;
-    setBoards: any;
-}
-interface IForm {
-    toDo: string;
-}
 
-function Board({ toDos = [], boardId, index, setBoards }: IBoardProps) {
-    const setToDos = useSetRecoilState<IToDoState>(toDoState);
-    const { register, setValue, handleSubmit } = useForm<IForm>();
-    const onValid = ({ toDo }: IForm) => {
-        const newToDo = {
-            id: Date.now(),
-            text: toDo,
-        };
-        setToDos((allBoards) => {
-            return {
-                ...allBoards,
-                [boardId]: [newToDo, ...allBoards[boardId]],
-            };
-        });
-        setValue("toDo", "");
-        console.log('boardId', boardId)
-    };
+const DeleteButton = styled.div`
+cursor: pointer;
+bottom: 3px;
+
+position: absolute;
+right: 1rem;
+opacity: 0; 
+transition: opacity 0.4s; 
+`;
 
 
-    const onDeleteBoard = () => {
-        // setToDos((allBoards) => {
-        //     const updatedBoards = { ...allBoards };
-        //     delete updatedBoards[boardId];
-        //     return updatedBoards;
-        // });
 
-        // 보드 목록 업데이트
-        setBoards((prevBoards) => {
-            return prevBoards.filter((b) => b !== boardId);
-        });
-    };
+const TitleWrapper = styled.div`
+display: flex;
+alignItems: center;
+justifyContent: space-between;
+position: relative;
+&:hover ${DeleteButton}{ 
+    opacity: 1;
+  }
 
-    return (
-        <Draggable draggableId={boardId} index={index} key={boardId} >
-
-            {(magic, Snapshot) => (
-                <Wrapper
-                    {...magic.dragHandleProps}
-                    {...magic.draggableProps}
-                    ref={magic.innerRef}
-                >
-                    <Title>{boardId}</Title>
-                    <DeleteButton
-                        onClick={() => onDeleteBoard(boardId)}>x</DeleteButton>
-
-                    <Form onSubmit={handleSubmit(onValid)}>
-                        <input
-                            {...register("toDo", { required: true })}
-                            type="text"
-                            placeholder={`Add task on ${boardId}`}
-                        />
-                    </Form>
-                    <Droppable droppableId={boardId}>
-                        {(magic, info) => (
-                            <Area
-                                isDraggingOver={info.isDraggingOver}
-                                isDraggingFromThis={Boolean(info.draggingFromThisWith)}
-                                ref={magic.innerRef}
-                                {...magic.droppableProps}
-                            >
-                                {toDos.map((toDo, index) => (
-                                    <DragabbleCard
-                                        key={toDo.id}
-                                        index={index}
-                                        toDoId={toDo.id}
-                                        toDoText={toDo.text}
-                                        boardId={boardId}
-                                    />
-                                ))}
-                                {magic.placeholder}
-                            </Area>
-                        )}
-                    </Droppable>
-                </Wrapper>
-            )}
-        </Draggable >
-    );
-}
-export default React.memo(Board);
+`
