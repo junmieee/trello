@@ -6,19 +6,18 @@ import { TrashCanState } from '../atoms.tsx'
 
 
 const TrashCanWrapper = styled.div`
-width: 33px;
-height: 40px;
-position: absolute;
-bottom: 40px;
-right: 50%;
-.trash {
+  width: 33px;
+  height: 40px;
+  position: absolute;
+  bottom: 40px;
+  right: 50%;
+  .trash {
     background-color: #2C3A47;
     width: 100%;
     height: 100%;
     display: inline-block;
     margin: 0 auto;
-
-svg {
+    svg {
       position: absolute;
       top: 13px;
       right: 8px;
@@ -34,8 +33,8 @@ svg {
   }
 
   .trash span {
-      position: absolute;
-      height: 6px;
+    position: absolute;
+    height: 6px;
     width: 48px;
     background: #2C3A47;
     top: -15px;
@@ -62,12 +61,29 @@ svg {
     transform-origin: 82% 100%;
     left: 20px;
   }
+
+  &::before {
+    content: "";
+    width: 120px; 
+    height: 120px; 
+    background-color: red; 
+    border-radius: 50%; 
+    opacity: 0.3;
+    position: absolute;
+    top: 30%; 
+    left: 50%; 
+    transform: translate(-50%, -50%) scale(0); 
+    transition: transform 0.3s ease; 
+  }
+
+  &:hover::before {
+    transform: translate(-50%, -50%) scale(1);
+  }
   &:hover .trash span {
     transform: rotate(45deg);
     transition: transform 250ms;
   }
-    
-`
+`;
 
 export const TrashCan = () => {
   const trashCan = useRecoilValue(TrashCanState);
