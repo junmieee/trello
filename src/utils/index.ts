@@ -12,9 +12,10 @@ export const onDragEnd = (info: DropResult, setBoards: SetterOrUpdater<string[]>
 
     if (source.droppableId === "boards") {
         setBoards((prev) => {
+            console.log('source', source)
 
             const boardCopy = [...prev];
-            console.log(boardCopy)
+            console.log('boardCopy', boardCopy)
 
             const item = boardCopy.splice(source.index, 1)[0];
             boardCopy.splice(destination.index, 0, item);

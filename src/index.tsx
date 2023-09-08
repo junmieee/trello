@@ -109,7 +109,6 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  // <React>
   <RecoilRoot>
     <QueryClientProvider client={client}>
       <ThemeProvider theme={theme}>
@@ -117,9 +116,7 @@ root.render(
         <App />
       </ThemeProvider>
     </QueryClientProvider>
-  </RecoilRoot>
-  // </React.StrictMode>,
-  ,
+  </RecoilRoot>,
   document.getElementById("root")
 );
 // >>>>>>> 72f7b5fde0a228cf5a7d1fec77239f22508ea852

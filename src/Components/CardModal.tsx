@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form";
 import { useSetRecoilState, useRecoilState, SetterOrUpdater } from "recoil";
 import { toDoState, cardState, cardModalState } from "../atoms.tsx";
 import { SlPencil } from "react-icons/sl";
-import { DarkModeSwitch } from 'react-toggle-dark-mode';
 import React from "react";
 
 
@@ -82,7 +81,9 @@ export const CardModal = () => {
     const setTodos: SetterOrUpdater<TodosState> = useSetRecoilState(toDoState);
     const [card, setCard] = useRecoilState(cardState);
     const [cardModal, setCardModal] = useRecoilState<boolean>(cardModalState);
-    console.log(Object.keys(card)[0]);
+    // console.log(Object.keys(card)[0]);
+
+
     const handleCloseModal = (): void => {
         return setCardModal(false);
     };
@@ -109,8 +110,6 @@ export const CardModal = () => {
     return (
         <ModalContainer
             isOpen={cardModal}
-            onRequestClose={() => console.log("Modal has been closed.")}
-            contentLabel="Example Modal"
         >
             <button onClick={handleCloseModal}>✕</button>
             <form onSubmit={handleSubmit(onValid)}>

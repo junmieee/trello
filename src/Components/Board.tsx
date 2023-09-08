@@ -5,6 +5,7 @@ import DragabbleCard from "./DragabbleCard.tsx";
 import { ITodo, toDoState } from "../atoms.tsx";
 import { Snapshot, useSetRecoilState } from "recoil";
 import React from "react";
+import { IToDoState } from "../atoms";
 
 
 const Wrapper = styled.div`
@@ -63,17 +64,26 @@ const Form = styled.form`
 `;
 
 
+const DeleteButton = styled.button`
+  font-size: 50px;
+
+  cursor: pointer;
+  top: 5px;
+  right: 10px;
+`;
+
 interface IBoardProps {
     toDos: ITodo[];
     boardId: string;
     index: number;
+    setBoards: any;
 }
 interface IForm {
     toDo: string;
 }
 
-function Board({ toDos, boardId, index }: IBoardProps) {
-    const setToDos = useSetRecoilState(toDoState);
+function Board({ toDos = [], boardId, index, setBoards }: IBoardProps) {
+    const setToDos = useSetRecoilState<IToDoState>(toDoState);
     const { register, setValue, handleSubmit } = useForm<IForm>();
     const onValid = ({ toDo }: IForm) => {
         const newToDo = {
@@ -89,6 +99,21 @@ function Board({ toDos, boardId, index }: IBoardProps) {
         setValue("toDo", "");
         console.log('boardId', boardId)
     };
+
+
+    const onDeleteBoard = () => {
+        // setToDos((allBoards) => {
+        //     const updatedBoards = { ...allBoards };
+        //     delete updatedBoards[boardId];
+        //     return updatedBoards;
+        // });
+
+        // 보드 목록 업데이트
+        setBoards((prevBoards) => {
+            return prevBoards.filter((b) => b !== boardId);
+        });
+    };
+
     return (
         <Draggable draggableId={boardId} index={index} key={boardId} >
 
@@ -99,6 +124,9 @@ function Board({ toDos, boardId, index }: IBoardProps) {
                     ref={magic.innerRef}
                 >
                     <Title>{boardId}</Title>
+                    <DeleteButton
+                        onClick={() => onDeleteBoard(boardId)}>x</DeleteButton>
+
                     <Form onSubmit={handleSubmit(onValid)}>
                         <input
                             {...register("toDo", { required: true })}
