@@ -1,8 +1,8 @@
-import { DragDropContext, Droppable, Draggable, DropResult, DragStart } from "react-beautiful-dnd";
-import { useRecoilState, SetterOrUpdater, useSetRecoilState } from "recoil";
+import { DragDropContext, Droppable, DragStart } from "react-beautiful-dnd";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { toDoState, BoardState, isDarkState, TrashCanState } from "./atoms.tsx";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Board from "./Components/Board.tsx"
 import { CardModal } from "./Components/CardModal.tsx";
 import { ThemeProvider } from "styled-components";
@@ -12,13 +12,14 @@ import { onDragEnd } from "./utils/index.ts";
 import { TrashCan } from '../src/Components/TrashCan.tsx'
 import { DarkModeSwitch } from 'react-toggle-dark-mode';
 import { AiOutlinePlus } from "react-icons/ai";
+import { IToDoState } from "./atoms";
 
 
 
 function App() {
   const [isDarkMode, setDarkMode] = useRecoilState(isDarkState);
   const [boardsmove, setBoards] = useRecoilState<string[]>(BoardState);
-  const [toDos, setToDos] = useRecoilState(toDoState);
+  const [toDos, setToDos] = useRecoilState<IToDoState>(toDoState);
   const setTrashCan = useSetRecoilState(TrashCanState);
 
 
