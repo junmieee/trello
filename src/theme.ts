@@ -1,34 +1,33 @@
 import { DefaultTheme } from "styled-components";
 
 export const darkTheme: DefaultTheme = {
-  bgColor: "#57606f",
-  boardColor: "#dfe4ea",
+  bgColor: "#222222",
+  boardColor: "#535c68",
   cardColor: "white",
-  textColor: "#747d8c"
+  textColor: "#f5f6fa",
+  trashCan: '#d2dae2',
+  plusBtn: {
+    default: 'rgb(253, 150, 68, 0.5)',
+    hover: 'rgb(250, 130, 49, 0.8)'
+  }
 
 };
 
 export const lightTheme: DefaultTheme = {
-  bgColor: "#e7e7e9",
+  bgColor: "#E7E7E9",
   cardColor: "white",
-  boardColor: "#f1f2f6",
-  textColor: "#2f3542"
+  boardColor: "#EFEFEF",
+  textColor: "#2f3542",
+  trashCan: '#2C3A47',
+  plusBtn: {
+    default: ' rgb(247, 183, 49, 0.5)',
+    hover: 'rgb(247, 183, 49,0.8)'
+  }
+
 };
 
 
 
-// export const theme: DefaultTheme = {
-//   colors: {
-//     white: '#ffffff',
-//     lightGray: '#e6e6e6',
-//     gray: '#707070',
-//     cardColor: "white",
-//     darkGray: '#4D4D4D',
-//     'subway-line-1': '#0d3692',
-//     'subway-line-2': '#33a23d',
-//   },
-// };
-// =======
 export const theme: DefaultTheme = {
   red: "#E51013",
   black: {
@@ -41,4 +40,3 @@ export const theme: DefaultTheme = {
     darker: "#e5e5e5",
   },
 };
-// >>>>>>> 72f7b5fde0a228cf5a7d1fec77239f22508ea852

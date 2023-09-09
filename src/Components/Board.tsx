@@ -3,10 +3,10 @@ import { Droppable, Draggable } from "react-beautiful-dnd";
 import styled from "styled-components";
 import DragabbleCard from "./DragabbleCard.tsx";
 import { ITodo, toDoState } from "../atoms.tsx";
-import { Snapshot, useSetRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import React from "react";
 import { IToDoState } from "../atoms";
-import { BiTrashAlt } from "react-icons/bi";
+import { FaTrash } from "react-icons/fa";
 
 
 interface IBoardProps {
@@ -60,17 +60,16 @@ function Board({ toDos = [], boardId, index, setBoards }: IBoardProps) {
                     {...magic.draggableProps}
                     ref={magic.innerRef}
                 >
-                    <TitleWrapper >
-
+                    <TitleWrapper>
                         <Title>{boardId}</Title>
                         <DeleteButton
-                            onClick={() => onDeleteBoard(boardId)}><BiTrashAlt size={30} /></DeleteButton>
+                            onClick={() => onDeleteBoard(boardId)}><FaTrash size={20} /></DeleteButton>
                     </TitleWrapper>
                     <Form onSubmit={handleSubmit(onValid)}>
                         <input
                             {...register("toDo", { required: true })}
                             type="text"
-                            placeholder={`Add task on ${boardId}`}
+                            placeholder={`${boardId}에 추가`}
                         />
                     </Form>
                     <Droppable droppableId={boardId}>
@@ -106,6 +105,7 @@ const Wrapper = styled.div`
   width: 300px;
   padding-top: 10px;
   background-color: ${(props) => props.theme.boardColor};
+ 
   border-radius: 5px;
   min-height: 300px;
   display: flex;
@@ -113,9 +113,6 @@ const Wrapper = styled.div`
   overflow: hidden;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   margin-right: 18px;
-
-
-
 `;
 
 
@@ -124,10 +121,11 @@ interface IAreaProps {
     isDraggingFromThis: boolean;
     isDraggingOver: boolean;
 }
+
 const Area = styled.div<IAreaProps>`
   background-color: ${(props) =>
         props.isDraggingOver
-            ? "#dfe6e9"
+            ? "#a5b1c2"
             : props.isDraggingFromThis
                 ? "#b2bec3"
                 : "transparent"};
@@ -172,11 +170,16 @@ const Title = styled.h2`
 const DeleteButton = styled.div`
 cursor: pointer;
 bottom: 3px;
+margin-bottom: 5px;
 
 position: absolute;
 right: 1rem;
 opacity: 0; 
 transition: opacity 0.4s; 
+svg {
+    color: ${(props) => props.theme.trashCan};
+
+}
 `;
 
 

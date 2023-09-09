@@ -11,7 +11,6 @@ import { createGlobalStyle } from "styled-components";
 import { onDragEnd } from "./utils/index.ts";
 import { TrashCan } from '../src/Components/TrashCan.tsx'
 import { DarkModeSwitch } from 'react-toggle-dark-mode';
-import { IToDoState } from "./atoms";
 import { AiOutlinePlus } from "react-icons/ai";
 
 
@@ -173,8 +172,10 @@ const GlobalStyle = createGlobalStyle`
           font - weight: 300;
         font-family: 'Source Sans Pro', sans-serif;
         color:black;
+        
         line-height: 1.2;
         background-color: ${(props) => props.theme.bgColor};
+        transition: background-color 0.5s;
   }
         a {
           text - decoration:none;
@@ -185,32 +186,39 @@ const GlobalStyle = createGlobalStyle`
 const Navigation = styled.nav`
         display: flex;
         position: fixed;
-        padding: 2.5rem 3rem;
+        padding: 2.5rem 5rem;
         align-items: center;
         justify-content: space-between;
         width: 100vw;
+        z-index:10000;
         color: ${(props) => props.theme.textColor};
         `;
-
 const Wrapper = styled.div`
         position: relative;
         display: flex;
-        max-width: 680px;
-        width: 100vw;
-        margin: 0 auto;
-        justify-content: center;
+        max-width: 100%; 
+        width: 100%;
+        margin-top: 2rem;
+       margin: 0 7rem;
+        justify-content: flex-start; 
         align-items: center;
         height: 100vh;
-        `;
+        overflow-x: auto; 
+      `;
 
 const Boards = styled.div`
-        display: grid;
-        width: 100%;
-        justify-content: center;
-        align-items: flex-start;
-        gap: 10px;
-        grid-template-columns: repeat(3, 1fr);
-        `;
+      display: flex; /* 그리드 레이아웃에서 나가고 수평 배치로 변경합니다. */
+      justify-content: flex-start; /* 왼쪽 정렬로 변경합니다. */
+      align-items: flex-start;
+      gap: 10px;
+      /* grid-template-columns: repeat(3, 1fr); 이 부분은 제거합니다. */
+    `;
+
+
+
+
+
+
 
 const Buttons = styled.div`
         display: flex;
@@ -227,12 +235,13 @@ const Button = styled.div`
   width: 5rem;
   height: 5rem;
   border-radius: 50%;
-  background-color: rgba(10, 61, 98, 0.1);
+  background-color: ${(props) => props.theme.plusBtn.default};
+
   transition: background-color 0.3s; 
   padding: 0;
-
+  color: ${(props) => props.theme.textColor};
   &:hover {
-    background-color: rgba(10, 61, 98, 0.35);
+     background-color:${(props) => props.theme.plusBtn.hover}
   }
   &:focus {
     cursor: pointer;
