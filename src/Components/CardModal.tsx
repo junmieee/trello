@@ -88,10 +88,14 @@ export const CardModal = () => {
         return setCardModal(false);
     };
 
+    console.log('[Object.keys(card)', [Object.keys(card)])
+    console.log('[Object.values(card)', [Object.values(card)])
+
     const onValid = (): void => {
         setTodos((todos) => {
             const { text } = getValues();
             const copiedTodos = [...todos[Object.keys(card)[0]]];
+            console.log('copiedTodos', copiedTodos)
             const editingTodoIndex: number = copiedTodos.findIndex((todo) => todo.id === Object.values(card)[0]);
             copiedTodos.splice(editingTodoIndex, 1);
             const editedTodo: Todo = { id: Object.values(card)[0], text };

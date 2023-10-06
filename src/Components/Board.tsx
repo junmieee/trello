@@ -27,10 +27,10 @@ function Board({ toDos = [], boardId, index, setBoards }: IBoardProps) {
             id: Date.now(),
             text: toDo,
         };
-        setToDos((allBoards) => {
+        setToDos((toDos) => {
             return {
-                ...allBoards,
-                [boardId]: [newToDo, ...allBoards[boardId]],
+                ...toDos,
+                [boardId]: [...toDos[boardId], newToDo],
             };
         });
         setValue("toDo", "");

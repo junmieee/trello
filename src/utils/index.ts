@@ -7,6 +7,7 @@ export const onDragEnd = (info: DropResult, setBoards: SetterOrUpdater<string[]>
 
 ) => {
     const { destination, source } = info;
+    console.log('source: ', source);
 
     if (!destination) return;
 
@@ -37,7 +38,9 @@ export const onDragEnd = (info: DropResult, setBoards: SetterOrUpdater<string[]>
         // same board movement.
         setToDos((allBoards) => {
             const boardCopy = [...allBoards[source.droppableId]];
+            console.log('source.index', source.index)
             const taskObj = boardCopy[source.index];
+            console.log('taskObj', taskObj)
             boardCopy.splice(source.index, 1);
             boardCopy.splice(destination?.index, 0, taskObj);
             return {
